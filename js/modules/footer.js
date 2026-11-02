@@ -7,7 +7,7 @@
  * de CONTACT.isDemo; el año del copyright es dinámico.
  */
 
-import { getContactView } from './contact.js?v=10.0';
+import { getContactView } from './contact.js?v=11.0';
 
 export function initFooter(now = new Date()) {
   const footer = document.querySelector('[data-footer]');

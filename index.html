@@ -4,6 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>THE GENTLEMAN | Barber Studio</title>
+  <meta name="description" content="Sitio de demostración de THE GENTLEMAN, barbería Modern Classic: cortes, barba y cuidado masculino, galería y solicitud de reservas por WhatsApp.">
+  <meta name="theme-color" content="#F2EFE7">
+
+  <!-- SEO y vista previa al compartir (WhatsApp, redes). Estas URL deben ser
+       absolutas: si cambia la dirección publicada, actualizarlas aquí. -->
+  <link rel="canonical" href="https://cnjv3.github.io/The-gentleman/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_CL">
+  <meta property="og:site_name" content="THE GENTLEMAN">
+  <meta property="og:title" content="THE GENTLEMAN | Barber Studio">
+  <meta property="og:description" content="Barbería de estilo Modern Classic: cortes, barba y cuidado masculino. Sitio de demostración.">
+  <meta property="og:url" content="https://cnjv3.github.io/The-gentleman/">
+  <meta property="og:image" content="https://cnjv3.github.io/The-gentleman/assets/images/og/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Imagen referencial: sillón de barbería clásico en un ambiente de madera oscura con iluminación cálida.">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Íconos (ruta relativa: en GitHub Pages el navegador buscaría
+       /favicon.ico en la raíz del dominio y daría 404) -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/favicon/apple-touch-icon.png">
   <!-- Marca que JavaScript está disponible (mejora progresiva del menú) -->
   <script>document.documentElement.classList.add('js');</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,8 +34,19 @@
   <!-- Versión de los archivos (?v=): cambiarla en cada publicación obliga a los
        navegadores a descargar el CSS y el JS nuevos en vez de usar copias en caché.
        Debe ser la misma aquí, en js/main.js y en los import de js/modules/. -->
-  <link rel="stylesheet" href="css/styles.css?v=10.0">
-  <script type="module" src="js/main.js?v=10.0"></script>
+  <link rel="stylesheet" href="css/styles.css?v=11.0">
+  <script type="module" src="js/main.js?v=11.0"></script>
+  <!-- Descarga en paralelo de todos los módulos (evita la cascada main → módulos → dependencias).
+       Misma versión (?v=) que el resto: si se agrega un módulo, agregarlo aquí. -->
+  <link rel="modulepreload" href="js/config.js?v=11.0">
+  <link rel="modulepreload" href="js/modules/navigation.js?v=11.0">
+  <link rel="modulepreload" href="js/modules/reveal.js?v=11.0">
+  <link rel="modulepreload" href="js/modules/booking.js?v=11.0">
+  <link rel="modulepreload" href="js/modules/store.js?v=11.0">
+  <link rel="modulepreload" href="js/modules/services-data.js?v=11.0">
+  <link rel="modulepreload" href="js/modules/lightbox.js?v=11.0">
+  <link rel="modulepreload" href="js/modules/contact.js?v=11.0">
+  <link rel="modulepreload" href="js/modules/footer.js?v=11.0">
 </head>
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -320,12 +353,15 @@
         <!-- Imágenes ilustrativas generadas con IA para la demostración.
              Para un cliente real, reemplazar los archivos de assets/images/gallery/
              manteniendo los nombres (800 y 1536 px de ancho, .avif y .webp). -->
+        <!-- sizes: ancho que ocupa cada foto según su posición. Las celdas recortan
+             la foto (object-fit: cover, fuente 3:2): las verticales (4:5) piden
+             1.875 veces su ancho y la final (4:3) 1.125 veces, para no verse borrosas. -->
         <ul class="gallery__grid">
           <li class="gallery__item gallery__item--1" data-reveal>
             <a class="gallery__link" href="assets/images/gallery/01-corte-clasico-1536.webp" data-lightbox data-avif="assets/images/gallery/01-corte-clasico-1536.avif" data-caption="Corte clásico" style="--pos: 62% 30%">
               <picture>
-                <source type="image/avif" srcset="assets/images/gallery/01-corte-clasico-800.avif 800w, assets/images/gallery/01-corte-clasico-1536.avif 1536w" sizes="(min-width: 64em) 680px, 100vw">
-                <img src="assets/images/gallery/01-corte-clasico-800.webp" srcset="assets/images/gallery/01-corte-clasico-800.webp 800w, assets/images/gallery/01-corte-clasico-1536.webp 1536w" sizes="(min-width: 64em) 680px, 100vw" width="1536" height="1024" alt="Imagen ilustrativa: barbero cortando con tijera y peine el cabello de un cliente con degradado." loading="lazy" decoding="async">
+                <source type="image/avif" srcset="assets/images/gallery/01-corte-clasico-800.avif 800w, assets/images/gallery/01-corte-clasico-1080.avif 1080w, assets/images/gallery/01-corte-clasico-1536.avif 1536w" sizes="(min-width: 64em) min(50vw, 720px), calc(100vw - 2.5rem)">
+                <img src="assets/images/gallery/01-corte-clasico-800.webp" srcset="assets/images/gallery/01-corte-clasico-800.webp 800w, assets/images/gallery/01-corte-clasico-1080.webp 1080w, assets/images/gallery/01-corte-clasico-1536.webp 1536w" sizes="(min-width: 64em) min(50vw, 720px), calc(100vw - 2.5rem)" width="1536" height="1024" alt="Imagen ilustrativa: barbero cortando con tijera y peine el cabello de un cliente con degradado." loading="lazy" decoding="async">
               </picture>
               <span class="visually-hidden"> (ampliar imagen)</span>
             </a>
@@ -333,8 +369,8 @@
           <li class="gallery__item gallery__item--2" data-reveal style="--reveal-delay: 80ms">
             <a class="gallery__link" href="assets/images/gallery/02-arreglo-barba-1536.webp" data-lightbox data-avif="assets/images/gallery/02-arreglo-barba-1536.avif" data-caption="Arreglo de barba" style="--pos: 55% 45%">
               <picture>
-                <source type="image/avif" srcset="assets/images/gallery/02-arreglo-barba-800.avif 800w, assets/images/gallery/02-arreglo-barba-1536.avif 1536w" sizes="(min-width: 64em) 480px, (min-width: 48em) 50vw, 50vw">
-                <img src="assets/images/gallery/02-arreglo-barba-800.webp" srcset="assets/images/gallery/02-arreglo-barba-800.webp 800w, assets/images/gallery/02-arreglo-barba-1536.webp 1536w" sizes="(min-width: 64em) 480px, (min-width: 48em) 50vw, 50vw" width="1536" height="1024" alt="Imagen ilustrativa: perfilado de barba con máquina en el cuello de un cliente recostado." loading="lazy" decoding="async">
+                <source type="image/avif" srcset="assets/images/gallery/02-arreglo-barba-800.avif 800w, assets/images/gallery/02-arreglo-barba-1080.avif 1080w, assets/images/gallery/02-arreglo-barba-1536.avif 1536w" sizes="(min-width: 64em) min(33vw, 470px), calc((50vw - 1.5rem) * 1.875)">
+                <img src="assets/images/gallery/02-arreglo-barba-800.webp" srcset="assets/images/gallery/02-arreglo-barba-800.webp 800w, assets/images/gallery/02-arreglo-barba-1080.webp 1080w, assets/images/gallery/02-arreglo-barba-1536.webp 1536w" sizes="(min-width: 64em) min(33vw, 470px), calc((50vw - 1.5rem) * 1.875)" width="1536" height="1024" alt="Imagen ilustrativa: perfilado de barba con máquina en el cuello de un cliente recostado." loading="lazy" decoding="async">
               </picture>
               <span class="visually-hidden"> (ampliar imagen)</span>
             </a>
@@ -342,8 +378,8 @@
           <li class="gallery__item gallery__item--3" data-reveal style="--reveal-delay: 160ms">
             <a class="gallery__link" href="assets/images/gallery/03-tratamiento-capilar-1536.webp" data-lightbox data-avif="assets/images/gallery/03-tratamiento-capilar-1536.avif" data-caption="Tratamiento capilar" style="--pos: 55% 45%">
               <picture>
-                <source type="image/avif" srcset="assets/images/gallery/03-tratamiento-capilar-800.avif 800w, assets/images/gallery/03-tratamiento-capilar-1536.avif 1536w" sizes="(min-width: 64em) 480px, (min-width: 48em) 50vw, 50vw">
-                <img src="assets/images/gallery/03-tratamiento-capilar-800.webp" srcset="assets/images/gallery/03-tratamiento-capilar-800.webp 800w, assets/images/gallery/03-tratamiento-capilar-1536.webp 1536w" sizes="(min-width: 64em) 480px, (min-width: 48em) 50vw, 50vw" width="1536" height="1024" alt="Imagen ilustrativa: lavado de cabello con espuma en un lavacabezas negro." loading="lazy" decoding="async">
+                <source type="image/avif" srcset="assets/images/gallery/03-tratamiento-capilar-800.avif 800w, assets/images/gallery/03-tratamiento-capilar-1080.avif 1080w, assets/images/gallery/03-tratamiento-capilar-1536.avif 1536w" sizes="(min-width: 64em) min(33vw, 470px), calc((50vw - 1.5rem) * 1.875)">
+                <img src="assets/images/gallery/03-tratamiento-capilar-800.webp" srcset="assets/images/gallery/03-tratamiento-capilar-800.webp 800w, assets/images/gallery/03-tratamiento-capilar-1080.webp 1080w, assets/images/gallery/03-tratamiento-capilar-1536.webp 1536w" sizes="(min-width: 64em) min(33vw, 470px), calc((50vw - 1.5rem) * 1.875)" width="1536" height="1024" alt="Imagen ilustrativa: lavado de cabello con espuma en un lavacabezas negro." loading="lazy" decoding="async">
               </picture>
               <span class="visually-hidden"> (ampliar imagen)</span>
             </a>
@@ -351,8 +387,8 @@
           <li class="gallery__item gallery__item--4" data-reveal>
             <a class="gallery__link" href="assets/images/gallery/04-peinado-styling-1536.webp" data-lightbox data-avif="assets/images/gallery/04-peinado-styling-1536.avif" data-caption="Peinado y styling" style="--pos: 62% 35%">
               <picture>
-                <source type="image/avif" srcset="assets/images/gallery/04-peinado-styling-800.avif 800w, assets/images/gallery/04-peinado-styling-1536.avif 1536w" sizes="(min-width: 64em) 480px, (min-width: 48em) 50vw, 100vw">
-                <img src="assets/images/gallery/04-peinado-styling-800.webp" srcset="assets/images/gallery/04-peinado-styling-800.webp 800w, assets/images/gallery/04-peinado-styling-1536.webp 1536w" sizes="(min-width: 64em) 480px, (min-width: 48em) 50vw, 100vw" width="1536" height="1024" alt="Imagen ilustrativa: barbero dando volumen al cabello con secador." loading="lazy" decoding="async">
+                <source type="image/avif" srcset="assets/images/gallery/04-peinado-styling-800.avif 800w, assets/images/gallery/04-peinado-styling-1080.avif 1080w, assets/images/gallery/04-peinado-styling-1536.avif 1536w" sizes="(min-width: 64em) min(50vw, 720px), calc(100vw - 2.5rem)">
+                <img src="assets/images/gallery/04-peinado-styling-800.webp" srcset="assets/images/gallery/04-peinado-styling-800.webp 800w, assets/images/gallery/04-peinado-styling-1080.webp 1080w, assets/images/gallery/04-peinado-styling-1536.webp 1536w" sizes="(min-width: 64em) min(50vw, 720px), calc(100vw - 2.5rem)" width="1536" height="1024" alt="Imagen ilustrativa: barbero dando volumen al cabello con secador." loading="lazy" decoding="async">
               </picture>
               <span class="visually-hidden"> (ampliar imagen)</span>
             </a>
@@ -360,8 +396,8 @@
           <li class="gallery__item gallery__item--5" data-reveal style="--reveal-delay: 80ms">
             <a class="gallery__link" href="assets/images/gallery/05-afeitado-clasico-1536.webp" data-lightbox data-avif="assets/images/gallery/05-afeitado-clasico-1536.avif" data-caption="Afeitado clásico" style="--pos: 55% 40%">
               <picture>
-                <source type="image/avif" srcset="assets/images/gallery/05-afeitado-clasico-800.avif 800w, assets/images/gallery/05-afeitado-clasico-1536.avif 1536w" sizes="(min-width: 64em) 680px, (min-width: 48em) 50vw, 50vw">
-                <img src="assets/images/gallery/05-afeitado-clasico-800.webp" srcset="assets/images/gallery/05-afeitado-clasico-800.webp 800w, assets/images/gallery/05-afeitado-clasico-1536.webp 1536w" sizes="(min-width: 64em) 680px, (min-width: 48em) 50vw, 50vw" width="1536" height="1024" alt="Imagen ilustrativa: afeitado con navaja y espuma sobre la mejilla de un cliente." loading="lazy" decoding="async">
+                <source type="image/avif" srcset="assets/images/gallery/05-afeitado-clasico-800.avif 800w, assets/images/gallery/05-afeitado-clasico-1080.avif 1080w, assets/images/gallery/05-afeitado-clasico-1536.avif 1536w" sizes="(min-width: 64em) min(46vw, 660px), calc((50vw - 1.5rem) * 1.875)">
+                <img src="assets/images/gallery/05-afeitado-clasico-800.webp" srcset="assets/images/gallery/05-afeitado-clasico-800.webp 800w, assets/images/gallery/05-afeitado-clasico-1080.webp 1080w, assets/images/gallery/05-afeitado-clasico-1536.webp 1536w" sizes="(min-width: 64em) min(46vw, 660px), calc((50vw - 1.5rem) * 1.875)" width="1536" height="1024" alt="Imagen ilustrativa: afeitado con navaja y espuma sobre la mejilla de un cliente." loading="lazy" decoding="async">
               </picture>
               <span class="visually-hidden"> (ampliar imagen)</span>
             </a>
@@ -369,8 +405,8 @@
           <li class="gallery__item gallery__item--6" data-reveal style="--reveal-delay: 160ms">
             <a class="gallery__link" href="assets/images/gallery/06-toalla-caliente-1536.webp" data-lightbox data-avif="assets/images/gallery/06-toalla-caliente-1536.avif" data-caption="Ritual de toalla caliente" style="--pos: 50% 40%">
               <picture>
-                <source type="image/avif" srcset="assets/images/gallery/06-toalla-caliente-800.avif 800w, assets/images/gallery/06-toalla-caliente-1536.avif 1536w" sizes="(min-width: 64em) 380px, (min-width: 48em) 50vw, 50vw">
-                <img src="assets/images/gallery/06-toalla-caliente-800.webp" srcset="assets/images/gallery/06-toalla-caliente-800.webp 800w, assets/images/gallery/06-toalla-caliente-1536.webp 1536w" sizes="(min-width: 64em) 380px, (min-width: 48em) 50vw, 50vw" width="1536" height="1024" alt="Imagen ilustrativa: toalla caliente con vapor sobre el rostro de un cliente relajado." loading="lazy" decoding="async">
+                <source type="image/avif" srcset="assets/images/gallery/06-toalla-caliente-800.avif 800w, assets/images/gallery/06-toalla-caliente-1080.avif 1080w, assets/images/gallery/06-toalla-caliente-1536.avif 1536w" sizes="(min-width: 64em) min(26vw, 375px), calc((50vw - 1.5rem) * 1.875)">
+                <img src="assets/images/gallery/06-toalla-caliente-800.webp" srcset="assets/images/gallery/06-toalla-caliente-800.webp 800w, assets/images/gallery/06-toalla-caliente-1080.webp 1080w, assets/images/gallery/06-toalla-caliente-1536.webp 1536w" sizes="(min-width: 64em) min(26vw, 375px), calc((50vw - 1.5rem) * 1.875)" width="1536" height="1024" alt="Imagen ilustrativa: toalla caliente con vapor sobre el rostro de un cliente relajado." loading="lazy" decoding="async">
               </picture>
               <span class="visually-hidden"> (ampliar imagen)</span>
             </a>
@@ -378,8 +414,8 @@
           <li class="gallery__item gallery__item--7" data-reveal>
             <a class="gallery__link" href="assets/images/gallery/07-degradado-perfilado-1536.webp" data-lightbox data-avif="assets/images/gallery/07-degradado-perfilado-1536.avif" data-caption="Degradado y perfilado" style="--pos: 58% 35%">
               <picture>
-                <source type="image/avif" srcset="assets/images/gallery/07-degradado-perfilado-800.avif 800w, assets/images/gallery/07-degradado-perfilado-1536.avif 1536w" sizes="(min-width: 64em) 290px, (min-width: 48em) 100vw, 100vw">
-                <img src="assets/images/gallery/07-degradado-perfilado-800.webp" srcset="assets/images/gallery/07-degradado-perfilado-800.webp 800w, assets/images/gallery/07-degradado-perfilado-1536.webp 1536w" sizes="(min-width: 64em) 290px, (min-width: 48em) 100vw, 100vw" width="1536" height="1024" alt="Imagen ilustrativa: perfilado de nuca con máquina en un corte degradado." loading="lazy" decoding="async">
+                <source type="image/avif" srcset="assets/images/gallery/07-degradado-perfilado-800.avif 800w, assets/images/gallery/07-degradado-perfilado-1080.avif 1080w, assets/images/gallery/07-degradado-perfilado-1536.avif 1536w" sizes="(min-width: 64em) min(24vw, 350px), calc(100vw - 2.5rem)">
+                <img src="assets/images/gallery/07-degradado-perfilado-800.webp" srcset="assets/images/gallery/07-degradado-perfilado-800.webp 800w, assets/images/gallery/07-degradado-perfilado-1080.webp 1080w, assets/images/gallery/07-degradado-perfilado-1536.webp 1536w" sizes="(min-width: 64em) min(24vw, 350px), calc(100vw - 2.5rem)" width="1536" height="1024" alt="Imagen ilustrativa: perfilado de nuca con máquina en un corte degradado." loading="lazy" decoding="async">
               </picture>
               <span class="visually-hidden"> (ampliar imagen)</span>
             </a>
@@ -387,8 +423,8 @@
           <li class="gallery__item gallery__item--8" data-reveal style="--reveal-delay: 80ms">
             <a class="gallery__link" href="assets/images/gallery/08-experiencia-1536.webp" data-lightbox data-avif="assets/images/gallery/08-experiencia-1536.avif" data-caption="Experiencia THE GENTLEMAN" style="--pos: 60% 28%">
               <picture>
-                <source type="image/avif" srcset="assets/images/gallery/08-experiencia-800.avif 800w, assets/images/gallery/08-experiencia-1536.avif 1536w" sizes="(min-width: 75em) 1200px, 100vw">
-                <img src="assets/images/gallery/08-experiencia-800.webp" srcset="assets/images/gallery/08-experiencia-800.webp 800w, assets/images/gallery/08-experiencia-1536.webp 1536w" sizes="(min-width: 75em) 1200px, 100vw" width="1536" height="1024" alt="Imagen ilustrativa: interior de barbería con sillón clásico de cuero, espejo iluminado y poste de barbería." loading="lazy" decoding="async">
+                <source type="image/avif" srcset="assets/images/gallery/08-experiencia-800.avif 800w, assets/images/gallery/08-experiencia-1080.avif 1080w, assets/images/gallery/08-experiencia-1536.avif 1536w" sizes="(min-width: 64em) min(79vw, 1136px), calc((100vw - 2.5rem) * 1.125)">
+                <img src="assets/images/gallery/08-experiencia-800.webp" srcset="assets/images/gallery/08-experiencia-800.webp 800w, assets/images/gallery/08-experiencia-1080.webp 1080w, assets/images/gallery/08-experiencia-1536.webp 1536w" sizes="(min-width: 64em) min(79vw, 1136px), calc((100vw - 2.5rem) * 1.125)" width="1536" height="1024" alt="Imagen ilustrativa: interior de barbería con sillón clásico de cuero, espejo iluminado y poste de barbería." loading="lazy" decoding="async">
               </picture>
               <span class="visually-hidden"> (ampliar imagen)</span>
             </a>
