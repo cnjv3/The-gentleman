@@ -2091,12 +2091,38 @@ html:not(.js) .site-nav__panel {
   line-height: 1.45;
 }
 
+/* Con mapa insertado: mapa arriba y franja con la dirección y la alternativa
+   abajo (visible aunque el mapa no cargue: el navegador no informa fallas). */
+.location-map.has-embed {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--ivory);
+}
+
+.location-map.has-embed::after {
+  display: none; /* El marco decorativo es solo para la ilustración */
+}
+
 .location-map__frame {
-  position: absolute;
-  inset: 0;
+  flex: 1;
   width: 100%;
-  height: 100%;
+  min-height: 0;
   border: 0;
+}
+
+.location-map__fallback {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--fs-sm);
+  line-height: 1.45;
+  text-align: center;
+  background-color: var(--ivory);
+  border-top: 1px solid var(--color-accent);
+}
+
+.location-map__fallback-address {
+  font-weight: 600;
 }
 
 .location-map__cta {

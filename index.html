@@ -645,9 +645,14 @@
                 </svg>
                 <div class="location-map__pin"><svg class="location-map__pin-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
                 <p class="location-map__caption">
-                  <span class="location-map__eyebrow">Ubicación de demostración</span>
-                  <span class="location-map__text">El mapa se mostrará aquí cuando exista una dirección confirmada.</span>
+                  <span class="location-map__eyebrow" data-contact="map-eyebrow">Ubicación de demostración</span>
+                  <span class="location-map__text" data-contact="map-text">El mapa se mostrará aquí cuando exista una dirección confirmada.</span>
                 </p>
+              </div>
+              <!-- Alternativa siempre visible bajo un mapa insertado (no se puede detectar si falla) -->
+              <div class="location-map__fallback" data-contact-map-fallback hidden>
+                <p class="location-map__fallback-address" data-contact="map-address"></p>
+                <p class="location-map__fallback-hint" data-contact="map-hint"></p>
               </div>
             </div>
             <a class="btn btn--primary location-map__cta" href="#" data-contact-action="map" target="_blank" rel="noopener" hidden><svg class="btn__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7M9 7h8v8"/></svg>Abrir en Google Maps<span class="visually-hidden"> (abre en una pestaña nueva)</span></a>

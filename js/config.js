@@ -40,8 +40,13 @@ export const CONTACT = {
   email: '',           // Ej.: 'contacto@dominio.cl'
   instagram: '',       // URL completa, ej.: 'https://www.instagram.com/usuario'
 
-  // Mapa: con una dirección real basta. mapsUrl es opcional (enlace exacto
-  // de Google Maps al local). showMapEmbed muestra el mapa dentro de la página.
+  // Mapa (solo se muestra con isDemo: false, para no ubicar datos ilustrativos):
+  // - Con una dirección real basta: se arma el mapa y el botón automáticamente.
+  // - mapsUrl (opcional): enlace para compartir de Google Maps, usado en el botón
+  //   "Abrir en Google Maps". Google no permite mostrarlo dentro de la página.
+  // - mapsEmbedUrl (opcional): Google Maps → Compartir → "Insertar un mapa" →
+  //   copiar solo la URL del src (https://www.google.com/maps/embed?pb=...).
   mapsUrl: '',
+  mapsEmbedUrl: '',
   showMapEmbed: true,
 };

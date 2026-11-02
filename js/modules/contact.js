@@ -34,10 +34,23 @@ export function mapsLink(c = CONTACT) {
 /** Solo acepta enlaces https (evita javascript: u otros esquemas en la configuración). */
 const safeUrl = (url) => (/^https:\/\//i.test(url.trim()) ? url.trim() : '');
 
+/** Solo URLs de inserción de Google Maps (los enlaces normales no se pueden mostrar en un iframe). */
+const EMBED_URL = /^https:\/\/www\.google\.com\/maps\/embed\?/i;
+
+/** URL del mapa insertado, o '' si no corresponde mostrarlo. */
+export function embedUrl(c = CONTACT) {
+  if (c.isDemo || !c.showMapEmbed) return '';
+  const custom = (c.mapsEmbedUrl || '').trim();
+  if (EMBED_URL.test(custom)) return custom;
+  if (!c.address.trim()) return '';
+  return `https://www.google.com/maps?q=${encodeURIComponent(fullAddress(c))}&output=embed`;
+}
+
 /** Datos listos para mostrar: texto, si es real y su acción (si existe). */
 export function getContactView(c = CONTACT, hours = BOOKING_HOURS, business = BUSINESS) {
   const address = fullAddress(c);
-  const map = safeUrl(mapsLink(c)); // '' si no hay dirección ni enlace configurado
+  // Mapa y "Cómo llegar" solo con datos reales: nunca se ubica una dirección ilustrativa
+  const map = c.isDemo ? '' : safeUrl(mapsLink(c)); // '' si no hay dirección ni enlace
   const instagram = safeUrl(c.instagram);
   const handle = instagram ? `@${instagram.replace(/\/+$/, '').split('/').pop()}` : '';
   return {
@@ -54,9 +67,7 @@ export function getContactView(c = CONTACT, hours = BOOKING_HOURS, business = BU
     email: c.email.trim() ? { text: c.email.trim(), href: `mailto:${c.email.trim()}` } : null,
     instagram: instagram ? { text: handle, href: instagram } : null,
     map: map ? { href: map } : null,
-    embed: c.showMapEmbed && c.address.trim()
-      ? `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`
-      : '',
+    embed: embedUrl(c),
     isDemo: Boolean(c.isDemo),
   };
 }
@@ -102,10 +113,19 @@ export function initContact() {
   // Avisos de datos ilustrativos
   section.querySelectorAll('[data-contact-demo]').forEach((el) => { el.hidden = !v.isDemo; });
 
-  // Mapa: real (iframe) solo con dirección confirmada; si no, estado de demostración
+  // Mapa: tres estados (demostración, enlace sin mapa insertado y mapa insertado)
   const frame = $(section, '[data-contact-map]');
+  if (!frame) return;
   const placeholder = $(section, '[data-contact-placeholder]');
-  if (v.embed && frame) {
+  const fallback = $(section, '[data-contact-map-fallback]');
+
+  if (!v.isDemo && v.map && !v.embed) {
+    // Hay ubicación real, pero no un mapa que se pueda insertar
+    setText(section, 'map-eyebrow', 'Ubicación en Google Maps');
+    setText(section, 'map-text', 'Usa el botón «Abrir en Google Maps» para ver cómo llegar.');
+  }
+
+  if (v.embed) {
     const iframe = document.createElement('iframe');
     iframe.className = 'location-map__frame';
     iframe.src = v.embed;
@@ -113,7 +133,19 @@ export function initContact() {
     iframe.loading = 'lazy';
     iframe.referrerPolicy = 'no-referrer-when-downgrade';
     iframe.allowFullscreen = true;
-    frame.append(iframe);
+    frame.prepend(iframe);
+    frame.classList.add('has-embed');
     if (placeholder) placeholder.hidden = true;
+    // El navegador no informa si un mapa externo falló (siempre dispara "load"),
+    // así que la dirección y la alternativa quedan siempre visibles bajo el mapa.
+    if (fallback) {
+      fallback.hidden = false;
+      const addressEl = $(fallback, '[data-contact="map-address"]');
+      addressEl.hidden = !v.address.real;
+      if (v.address.real) addressEl.textContent = v.address.text;
+      setText(fallback, 'map-hint', v.map
+        ? '¿No ves el mapa? Usa el botón «Abrir en Google Maps».'
+        : 'Mapa proporcionado por Google Maps.');
+    }
   }
 }
