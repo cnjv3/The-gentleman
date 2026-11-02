@@ -159,6 +159,12 @@ ol[class] {
   list-style: none;
 }
 
+/* "hidden" siempre oculta, aunque la clase defina otro display
+   (p. ej. botones sin dato configurado en Contacto). */
+[hidden] {
+  display: none !important;
+}
+
 ::selection {
   background-color: var(--color-selection-bg);
   color: var(--color-selection-text);
@@ -354,6 +360,23 @@ b {
   --btn-border: var(--gold);
   --btn-bg-hover: var(--ivory);
   --btn-text-hover: var(--charcoal);
+}
+
+/* Transparente con borde dorado profundo (4.91:1) y texto carbón,
+   para fondos claros. Hover: carbón con texto marfil. */
+.btn--ghost {
+  --btn-bg: transparent;
+  --btn-text: var(--charcoal);
+  --btn-border: var(--gold-deep);
+  --btn-bg-hover: var(--charcoal);
+  --btn-text-hover: var(--ivory);
+}
+
+/* Ícono dentro de un botón */
+.btn__icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
 }
 
 /* Dorado con texto carbón (4.57:1); hover beige (9.07:1).
@@ -1855,7 +1878,295 @@ html:not(.js) .site-nav__panel {
 
 /* =========================================================
    12. CONTACTO
+   ---------------------------------------------------------
+   Móvil: tarjetas a todo el ancho y el mapa debajo.
+   Desde 1024px: información | mapa (fijo al desplazarse).
    ========================================================= */
+
+.location {
+  border-top: 1px solid var(--beige);
+}
+
+/* Al saltar desde el menú, deja aire sobre el bloque */
+#contacto {
+  scroll-margin-top: var(--space-6);
+}
+
+/* Aviso de datos ilustrativos */
+.location__demo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2) var(--space-3);
+  max-width: 44rem;
+  margin: calc(var(--space-7) * -0.5) auto var(--space-7);
+  font-size: var(--fs-sm);
+  text-align: center;
+}
+
+.location__demo-tag {
+  padding: 0.25rem var(--space-3);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background-color: var(--beige); /* Carbón sobre beige: 9.07:1 */
+  border-radius: var(--radius);
+}
+
+.location__layout {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.location__noscript {
+  padding: var(--space-3) var(--space-4);
+  font-weight: 600;
+  border: 1px solid var(--color-field-border);
+  border-radius: var(--radius);
+}
+
+/* --- Tarjetas de información --- */
+.contact-list {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.contact-card {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: var(--space-4);
+  align-items: start;
+  padding: var(--space-5) var(--space-4);
+  background-color: color-mix(in srgb, var(--ivory) 55%, white);
+  border: 1px solid var(--beige);
+  border-radius: var(--radius);
+}
+
+/* Ícono dentro de un círculo con borde dorado */
+.contact-card__icon {
+  box-sizing: content-box;
+  width: 20px;
+  height: 20px;
+  padding: 11px;
+  color: var(--gold-deep);
+  border: 1px solid var(--color-accent);
+  border-radius: 50%;
+}
+
+.contact-card__title {
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.contact-card__text {
+  margin-top: var(--space-1);
+  font-size: var(--fs-sm);
+  overflow-wrap: anywhere;
+}
+
+.contact-card__title + .contact-card__text {
+  margin-top: var(--space-2);
+}
+
+.contact-card__strong,
+.contact-card__label {
+  font-weight: 600;
+}
+
+/* Dato aún no confirmado */
+.contact-card__text.is-pending,
+.contact-card__text .is-pending {
+  font-style: italic;
+}
+
+.contact-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.contact-card__actions:not(:has(.btn:not([hidden]))) {
+  display: none; /* Sin botones visibles, sin espacio vacío */
+}
+
+.contact-card__actions .btn {
+  gap: var(--space-2);
+  flex: 1 1 12rem;
+  padding-inline: var(--space-3);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+/* Celulares angostos: sin ícono, para que el texto quepa en una línea */
+.contact-card__actions .btn__icon {
+  display: none;
+}
+
+/* --- Mapa / estado de demostración --- */
+.location-map {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  background-color: var(--beige);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius);
+}
+
+/* Marco interior dorado, como en Nosotros */
+.location-map::after {
+  content: "";
+  position: absolute;
+  inset: var(--space-3);
+  border: 1px solid rgb(166 138 96 / 0.6);
+  border-radius: var(--radius);
+  pointer-events: none;
+}
+
+.location-map__placeholder {
+  position: absolute;
+  inset: 0;
+}
+
+.location-map__art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: color-mix(in srgb, var(--ivory) 70%, var(--beige));
+}
+
+.location-map__route {
+  stroke: var(--gold-deep);
+}
+
+.location-map__pin {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  color: var(--ivory);
+  background-color: var(--charcoal);
+  border: 3px solid var(--ivory);
+  border-radius: 50%;
+  box-shadow: 0 0 0 10px rgb(166 138 96 / 0.25);
+  transform: translate(-50%, -50%);
+}
+
+.location-map__pin-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.location-map__caption {
+  position: absolute;
+  right: var(--space-5);
+  bottom: var(--space-5);
+  left: var(--space-5);
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+  text-align: center;
+  background-color: rgb(242 239 231 / 0.94);
+  border-radius: var(--radius);
+}
+
+.location-map__eyebrow {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
+.location-map__text {
+  font-size: var(--fs-sm);
+  line-height: 1.45;
+}
+
+.location-map__frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.location-map__cta {
+  gap: var(--space-2);
+  width: 100%;
+  margin-top: var(--space-4);
+}
+
+@media (min-width: 25em) {
+  .contact-card__actions .btn__icon {
+    display: block;
+  }
+}
+
+@media (min-width: 30em) {
+  .contact-card {
+    padding: var(--space-5);
+  }
+
+  .location-map__caption {
+    right: var(--space-6);
+    bottom: var(--space-6);
+    left: var(--space-6);
+  }
+}
+
+@media (min-width: 48em) {
+  /* Tablet: tarjetas en dos columnas; la de teléfono, a lo ancho */
+  .contact-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+
+  .contact-card:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+
+  .location-map {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+/* Escritorio: información | mapa */
+@media (min-width: 64em) {
+  .location__layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-7);
+    align-items: stretch;
+  }
+
+  .contact-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .contact-card:nth-child(3) {
+    grid-column: auto;
+  }
+
+  /* Columnas equilibradas: el mapa iguala la altura de las tarjetas */
+  .location__map {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .location-map {
+    flex: 1;
+    min-height: 26rem;
+    aspect-ratio: auto;
+  }
+}
 
 
 /* =========================================================
