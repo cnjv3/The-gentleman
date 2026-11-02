@@ -355,7 +355,10 @@
              manteniendo los nombres (800 y 1536 px de ancho, .avif y .webp). -->
         <!-- sizes: ancho que ocupa cada foto según su posición. Las celdas recortan
              la foto (object-fit: cover, fuente 3:2): las verticales (4:5) piden
-             1.875 veces su ancho y la final (4:3) 1.125 veces, para no verse borrosas. -->
+             1.875 veces su ancho y la final (4:3) 1.125 veces, para no verse borrosas.
+             Las fotos en pareja (2, 3, 5 y 6) tienen además versiones verticales (-v480/640/820)
+             recortadas igual que object-position, usadas solo bajo 1024 px: así no se descarga
+             la parte de la imagen que la celda recorta. -->
         <ul class="gallery__grid">
           <li class="gallery__item gallery__item--1" data-reveal>
             <a class="gallery__link" href="assets/images/gallery/01-corte-clasico-1536.webp" data-lightbox data-avif="assets/images/gallery/01-corte-clasico-1536.avif" data-caption="Corte clásico" style="--pos: 62% 30%">
@@ -369,6 +372,8 @@
           <li class="gallery__item gallery__item--2" data-reveal style="--reveal-delay: 80ms">
             <a class="gallery__link" href="assets/images/gallery/02-arreglo-barba-1536.webp" data-lightbox data-avif="assets/images/gallery/02-arreglo-barba-1536.avif" data-caption="Arreglo de barba" style="--pos: 55% 45%">
               <picture>
+                <source media="(max-width: 63.99em)" type="image/avif" srcset="assets/images/gallery/02-arreglo-barba-v480.avif 480w, assets/images/gallery/02-arreglo-barba-v640.avif 640w, assets/images/gallery/02-arreglo-barba-v820.avif 820w" sizes="calc(50vw - 1.5rem)">
+                <source media="(max-width: 63.99em)" type="image/webp" srcset="assets/images/gallery/02-arreglo-barba-v480.webp 480w, assets/images/gallery/02-arreglo-barba-v640.webp 640w, assets/images/gallery/02-arreglo-barba-v820.webp 820w" sizes="calc(50vw - 1.5rem)">
                 <source type="image/avif" srcset="assets/images/gallery/02-arreglo-barba-800.avif 800w, assets/images/gallery/02-arreglo-barba-1080.avif 1080w, assets/images/gallery/02-arreglo-barba-1536.avif 1536w" sizes="(min-width: 64em) min(33vw, 470px), calc((50vw - 1.5rem) * 1.875)">
                 <img src="assets/images/gallery/02-arreglo-barba-800.webp" srcset="assets/images/gallery/02-arreglo-barba-800.webp 800w, assets/images/gallery/02-arreglo-barba-1080.webp 1080w, assets/images/gallery/02-arreglo-barba-1536.webp 1536w" sizes="(min-width: 64em) min(33vw, 470px), calc((50vw - 1.5rem) * 1.875)" width="1536" height="1024" alt="Imagen ilustrativa: perfilado de barba con máquina en el cuello de un cliente recostado." loading="lazy" decoding="async">
               </picture>
@@ -378,6 +383,8 @@
           <li class="gallery__item gallery__item--3" data-reveal style="--reveal-delay: 160ms">
             <a class="gallery__link" href="assets/images/gallery/03-tratamiento-capilar-1536.webp" data-lightbox data-avif="assets/images/gallery/03-tratamiento-capilar-1536.avif" data-caption="Tratamiento capilar" style="--pos: 55% 45%">
               <picture>
+                <source media="(max-width: 63.99em)" type="image/avif" srcset="assets/images/gallery/03-tratamiento-capilar-v480.avif 480w, assets/images/gallery/03-tratamiento-capilar-v640.avif 640w, assets/images/gallery/03-tratamiento-capilar-v820.avif 820w" sizes="calc(50vw - 1.5rem)">
+                <source media="(max-width: 63.99em)" type="image/webp" srcset="assets/images/gallery/03-tratamiento-capilar-v480.webp 480w, assets/images/gallery/03-tratamiento-capilar-v640.webp 640w, assets/images/gallery/03-tratamiento-capilar-v820.webp 820w" sizes="calc(50vw - 1.5rem)">
                 <source type="image/avif" srcset="assets/images/gallery/03-tratamiento-capilar-800.avif 800w, assets/images/gallery/03-tratamiento-capilar-1080.avif 1080w, assets/images/gallery/03-tratamiento-capilar-1536.avif 1536w" sizes="(min-width: 64em) min(33vw, 470px), calc((50vw - 1.5rem) * 1.875)">
                 <img src="assets/images/gallery/03-tratamiento-capilar-800.webp" srcset="assets/images/gallery/03-tratamiento-capilar-800.webp 800w, assets/images/gallery/03-tratamiento-capilar-1080.webp 1080w, assets/images/gallery/03-tratamiento-capilar-1536.webp 1536w" sizes="(min-width: 64em) min(33vw, 470px), calc((50vw - 1.5rem) * 1.875)" width="1536" height="1024" alt="Imagen ilustrativa: lavado de cabello con espuma en un lavacabezas negro." loading="lazy" decoding="async">
               </picture>
@@ -396,6 +403,8 @@
           <li class="gallery__item gallery__item--5" data-reveal style="--reveal-delay: 80ms">
             <a class="gallery__link" href="assets/images/gallery/05-afeitado-clasico-1536.webp" data-lightbox data-avif="assets/images/gallery/05-afeitado-clasico-1536.avif" data-caption="Afeitado clásico" style="--pos: 55% 40%">
               <picture>
+                <source media="(max-width: 63.99em)" type="image/avif" srcset="assets/images/gallery/05-afeitado-clasico-v480.avif 480w, assets/images/gallery/05-afeitado-clasico-v640.avif 640w, assets/images/gallery/05-afeitado-clasico-v820.avif 820w" sizes="calc(50vw - 1.5rem)">
+                <source media="(max-width: 63.99em)" type="image/webp" srcset="assets/images/gallery/05-afeitado-clasico-v480.webp 480w, assets/images/gallery/05-afeitado-clasico-v640.webp 640w, assets/images/gallery/05-afeitado-clasico-v820.webp 820w" sizes="calc(50vw - 1.5rem)">
                 <source type="image/avif" srcset="assets/images/gallery/05-afeitado-clasico-800.avif 800w, assets/images/gallery/05-afeitado-clasico-1080.avif 1080w, assets/images/gallery/05-afeitado-clasico-1536.avif 1536w" sizes="(min-width: 64em) min(46vw, 660px), calc((50vw - 1.5rem) * 1.875)">
                 <img src="assets/images/gallery/05-afeitado-clasico-800.webp" srcset="assets/images/gallery/05-afeitado-clasico-800.webp 800w, assets/images/gallery/05-afeitado-clasico-1080.webp 1080w, assets/images/gallery/05-afeitado-clasico-1536.webp 1536w" sizes="(min-width: 64em) min(46vw, 660px), calc((50vw - 1.5rem) * 1.875)" width="1536" height="1024" alt="Imagen ilustrativa: afeitado con navaja y espuma sobre la mejilla de un cliente." loading="lazy" decoding="async">
               </picture>
@@ -405,6 +414,8 @@
           <li class="gallery__item gallery__item--6" data-reveal style="--reveal-delay: 160ms">
             <a class="gallery__link" href="assets/images/gallery/06-toalla-caliente-1536.webp" data-lightbox data-avif="assets/images/gallery/06-toalla-caliente-1536.avif" data-caption="Ritual de toalla caliente" style="--pos: 50% 40%">
               <picture>
+                <source media="(max-width: 63.99em)" type="image/avif" srcset="assets/images/gallery/06-toalla-caliente-v480.avif 480w, assets/images/gallery/06-toalla-caliente-v640.avif 640w, assets/images/gallery/06-toalla-caliente-v820.avif 820w" sizes="calc(50vw - 1.5rem)">
+                <source media="(max-width: 63.99em)" type="image/webp" srcset="assets/images/gallery/06-toalla-caliente-v480.webp 480w, assets/images/gallery/06-toalla-caliente-v640.webp 640w, assets/images/gallery/06-toalla-caliente-v820.webp 820w" sizes="calc(50vw - 1.5rem)">
                 <source type="image/avif" srcset="assets/images/gallery/06-toalla-caliente-800.avif 800w, assets/images/gallery/06-toalla-caliente-1080.avif 1080w, assets/images/gallery/06-toalla-caliente-1536.avif 1536w" sizes="(min-width: 64em) min(26vw, 375px), calc((50vw - 1.5rem) * 1.875)">
                 <img src="assets/images/gallery/06-toalla-caliente-800.webp" srcset="assets/images/gallery/06-toalla-caliente-800.webp 800w, assets/images/gallery/06-toalla-caliente-1080.webp 1080w, assets/images/gallery/06-toalla-caliente-1536.webp 1536w" sizes="(min-width: 64em) min(26vw, 375px), calc((50vw - 1.5rem) * 1.875)" width="1536" height="1024" alt="Imagen ilustrativa: toalla caliente con vapor sobre el rostro de un cliente relajado." loading="lazy" decoding="async">
               </picture>
