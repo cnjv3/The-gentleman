@@ -23,22 +23,279 @@
 
 /* =========================================================
    01. VARIABLES
+   ---------------------------------------------------------
+   Puntos de quiebre (mobile-first, usar con min-width):
+     48em = 768px  → tablet
+     64em = 1024px → escritorio
+   Las variables CSS no funcionan dentro de @media,
+   por eso quedan documentados aquí.
    ========================================================= */
+
+:root {
+  /* --- Paleta base --- */
+  --ivory: #F2EFE7;
+  --beige: #D7C8AF;
+  --charcoal: #292722;
+  --gold: #A68A60;       /* Decoración en claro / texto en oscuro */
+  --gold-deep: #7A6440;  /* Solo texto pequeño sobre fondos claros (4.91:1) */
+
+  /* --- Tokens de uso (los que usan las secciones) --- */
+  --color-bg: var(--ivory);
+  --color-text: var(--charcoal);
+  --color-accent: var(--gold);          /* Líneas, bordes, íconos */
+  --color-eyebrow: var(--gold-deep);    /* Etiquetas pequeñas */
+  --color-focus: var(--charcoal);       /* Contorno de foco (mín. 3:1) */
+  --color-selection-bg: var(--charcoal);
+  --color-selection-text: var(--ivory);
+
+  /* --- Tipografías --- */
+  --font-heading: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* --- Escala tipográfica fluida (celular → escritorio) --- */
+  --fs-xs: 0.75rem;                                   /* 12px */
+  --fs-sm: 0.875rem;                                  /* 14px */
+  --fs-base: 1rem;                                    /* 16px */
+  --fs-lead: clamp(1.0625rem, 1rem + 0.4vw, 1.25rem); /* 17 → 20px */
+  --fs-h4: 1.125rem;                                  /* 18px */
+  --fs-h3: clamp(1.375rem, 1.2rem + 0.75vw, 1.75rem); /* 22 → 28px */
+  --fs-h2: clamp(2rem, 1.6rem + 2vw, 3.25rem);        /* 32 → 52px */
+  --fs-h1: clamp(2.5rem, 1.9rem + 3vw, 4.5rem);       /* 40 → 72px */
+
+  --lh-tight: 1.15;
+  --lh-body: 1.6;
+
+  /* --- Espaciados --- */
+  --space-1: 0.25rem;  /*  4px */
+  --space-2: 0.5rem;   /*  8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.5rem;   /* 24px */
+  --space-6: 2rem;     /* 32px */
+  --space-7: 3rem;     /* 48px */
+  --space-8: 4rem;     /* 64px */
+  --section-padding: clamp(4rem, 3rem + 5vw, 7.5rem);
+
+  /* --- Contenedor --- */
+  --container-max: 75rem; /* 1200px */
+  --container-padding: clamp(1rem, 0.5rem + 2.5vw, 2rem);
+
+  /* --- Forma --- */
+  --radius: 2px;
+
+  /* --- Movimiento --- */
+  --duration-fast: 200ms;
+  --duration-base: 400ms;
+  --duration-slow: 800ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
 
 
 /* =========================================================
    02. RESET Y BASE
    ========================================================= */
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  font-weight: 400;
+  line-height: var(--lh-body);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+picture,
+video,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+ul[class],
+ol[class] {
+  padding: 0;
+  list-style: none;
+}
+
+::selection {
+  background-color: var(--color-selection-bg);
+  color: var(--color-selection-text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
 
 /* =========================================================
    03. TIPOGRAFÍA
    ========================================================= */
 
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  line-height: var(--lh-tight);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
+h1 { font-size: var(--fs-h1); }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); font-weight: 600; }
+h4 { font-size: var(--fs-h4); font-weight: 600; }
+
+p {
+  text-wrap: pretty;
+  overflow-wrap: break-word;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+em,
+i {
+  font-style: italic;
+}
+
+strong,
+b {
+  font-weight: 600;
+}
+
+.lead {
+  font-size: var(--fs-lead);
+}
+
 
 /* =========================================================
    04. UTILIDADES
    ========================================================= */
+
+/* Contenedor centrado con margen lateral fluido */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+
+/* Espaciado vertical común de las secciones */
+.section {
+  padding-block: var(--section-padding);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Fondo beige: el dorado profundo no alcanza 4.5:1, se usa carbón */
+.section--beige {
+  --color-bg: var(--beige);
+  --color-eyebrow: var(--charcoal);
+}
+
+/* Fondo carbón: el dorado original sí alcanza 4.5:1 */
+.section--dark {
+  --color-bg: var(--charcoal);
+  --color-text: var(--ivory);
+  --color-eyebrow: var(--gold);
+  --color-focus: var(--gold);
+  --color-selection-bg: var(--gold);
+  --color-selection-text: var(--charcoal);
+}
+
+/* Etiqueta pequeña en mayúsculas sobre los títulos */
+.eyebrow {
+  display: block;
+  margin-bottom: var(--space-3);
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-eyebrow);
+}
+
+/* Oculta visualmente, pero los lectores de pantalla lo leen */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Enlace "saltar al contenido" (su HTML se agrega en la Etapa 3) */
+.skip-link {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 100;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ivory);
+  background-color: var(--charcoal);
+  border-radius: var(--radius);
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+.text-center {
+  text-align: center;
+}
 
 
 /* =========================================================
@@ -93,4 +350,18 @@
 
 /* =========================================================
    15. REDUCCIÓN DE MOVIMIENTO
+   ---------------------------------------------------------
+   Si el usuario pidió reducir el movimiento en su
+   dispositivo, se anulan animaciones y transiciones.
    ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
