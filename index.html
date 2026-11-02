@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>THE GENTLEMAN | Barber Studio</title>
+  <!-- Marca que JavaScript está disponible (mejora progresiva del menú) -->
+  <script>document.documentElement.classList.add('js');</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap">
@@ -11,19 +13,54 @@
   <script type="module" src="js/main.js"></script>
 </head>
 <body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
   <!-- 1. Header y navegación -->
+  <header class="site-header" data-header>
+    <div class="container site-header__inner">
+      <a class="logo" href="#inicio">
+        <span class="logo__name">THE GENTLEMAN</span>
+        <span class="logo__tagline"><span>Barber Studio</span></span>
+      </a>
 
-  <!-- 2. Hero principal -->
+      <nav class="site-nav" aria-label="Principal">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu-principal" data-nav-toggle>
+          <span class="nav-toggle__icon" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          <span class="visually-hidden" data-nav-label>Abrir menú</span>
+        </button>
 
-  <!-- 3. Nosotros -->
+        <div class="site-nav__panel" id="menu-principal" data-nav-panel>
+          <ul class="site-nav__list">
+            <li><a class="site-nav__link" href="#inicio">Inicio</a></li>
+            <li><a class="site-nav__link" href="#nosotros">Nosotros</a></li>
+            <li><a class="site-nav__link" href="#servicios">Servicios</a></li>
+            <li><a class="site-nav__link" href="#galeria">Galería</a></li>
+            <li><a class="site-nav__link" href="#ubicacion">Ubicación</a></li>
+            <li><a class="site-nav__link" href="#contacto">Contacto</a></li>
+          </ul>
+          <a class="btn btn--primary site-nav__cta" href="#reservas">Reservar</a>
+        </div>
+      </nav>
+    </div>
+  </header>
 
-  <!-- 4. Servicios y precios -->
+  <main id="contenido">
+    <!-- 2. Hero principal -->
 
-  <!-- 5. Galería de trabajos -->
+    <!-- 3. Nosotros -->
 
-  <!-- 6. Reservas por WhatsApp -->
+    <!-- 4. Servicios y precios -->
 
-  <!-- 7. Ubicación y contacto -->
+    <!-- 5. Galería de trabajos -->
+
+    <!-- 6. Reservas por WhatsApp -->
+
+    <!-- 7. Ubicación y contacto -->
+  </main>
 
   <!-- 8. Footer -->
 </body>
