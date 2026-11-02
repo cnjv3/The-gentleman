@@ -33,11 +33,12 @@ tests/
 
 | Requisito | Versión usada | Por qué |
 |---|---|---|
-| Python | 3.13 (mínimo 3.9) | Lenguaje de las pruebas y del ejecutor |
-| Playwright para Python | 1.63.0 | Controla el navegador |
+| Python | 3.13.18 (Playwright exige 3.10 o más) | Lenguaje de las pruebas y del ejecutor |
+| Playwright para Python | 1.63.0 (driver 1.63.0) | Controla el navegador |
+| pyee · greenlet · typing_extensions | 13.0.1 · 3.5.6 · 4.16.0 | Dependencias de Playwright |
 | Pillow | 12.3.0 | Analiza capturas (contraste sobre fotos) e imágenes del sitio |
-| Google Chrome | 153 (Chrome for Testing) | Navegador de las pruebas; **debe estar en `/usr/bin/google-chrome`** |
-| Git con el historial completo | — | `test_fix_mobile.py` lee una versión antigua del CSS (commit `d4daf3e`) |
+| Google Chrome | 153.0.8010.12 (Chrome for Testing) | Navegador de las pruebas; **debe estar en `/usr/bin/google-chrome`** |
+| Git con el historial completo | 2.43.0 | `test_fix_mobile.py` lee una versión antigua del CSS (commit `d4daf3e`) |
 | Puerto 8771 libre | — | El ejecutor sirve el sitio en `http://localhost:8771/` |
 
 No se necesita internet: las peticiones externas (Google Fonts, Google Maps) se bloquean o se
@@ -60,6 +61,7 @@ Chrome y Git ya venían instalados; en otro entorno hay que instalarlos antes.
    pip install -r tests/requirements.txt
    ```
    No hace falta ejecutar `playwright install`: las suites usan el Chrome del sistema.
+   **Advertencia:** este paso todavía no se ha verificado (ver «Verificación de reproducibilidad»).
 
 3. **Ejecuta todas las suites** desde la raíz del repositorio:
    ```bash
@@ -142,8 +144,52 @@ en cualquier carpeta:
 
 Ninguna comprobación se agregó, quitó ni modificó.
 
+## Verificación de reproducibilidad (2 de noviembre de 2026)
+
+**Resultado real:** 734/734 pruebas superadas, 0 fallas y 0 errores de Python, en **una sola
+ejecución** de `python3 tests/run_all.py` sobre el commit `947b5a9`. El sitio de ese commit es
+idéntico al de `0839655`: solo se agregó `tests/`. El recuento se comprobó además contando las
+líneas `OK` y `FALLA` de los 10 registros.
+
+| Suite | Superadas | Fallas | Tiempo |
+|---|---:|---:|---:|
+| header | 36/36 | 0 | 15 s |
+| hero | 85/85 | 0 | 44 s |
+| about | 25/25 | 0 | 21 s |
+| services | 80/80 | 0 | 41 s |
+| gallery | 78/78 | 0 | 52 s |
+| booking | 127/127 | 0 | 43 s |
+| fix_mobile | 49/49 | 0 | 21 s |
+| contact | 113/113 | 0 | 51 s |
+| footer | 94/94 | 0 | 19 s |
+| optim | 47/47 | 0 | 34 s |
+| **Total** | **734/734** | **0** | ~6 min |
+
+**Qué sí se verificó:**
+- Clon nuevo desde GitHub, en una carpeta distinta de la de trabajo (así se comprueba que no
+  quedan rutas fijas).
+- Ejecución con el entorno vaciado (`env -i`, sin variables heredadas y con un `HOME` nuevo) y
+  sin acceso a los archivos temporales donde nacieron las suites.
+- El aviso de clon parcial: con `git clone --depth 1`, `run_all.py` se detiene con código 2 y
+  explica cómo corregirlo.
+
+**Qué NO se verificó: no es una ejecución limpia completa.** Los paquetes de Python no se
+instalaron desde `requirements.txt`. Se usaron los que la sesión de Claude Code ya traía
+instalados, con las mismas versiones que lista ese archivo. Motivos:
+- En esa sesión no había acceso a PyPI. El entorno no resolvía nombres de internet por su cuenta,
+  y a través del proxy de la sesión `pypi.org` respondía 403. Es un problema de conectividad: la
+  versión 1.63.0 de Playwright existe en PyPI (publicada el 15 de septiembre de 2026).
+- La caché local de paquetes (`uv`) no contenía `playwright`, `Pillow`, `greenlet` ni `pyee`, así
+  que tampoco se pudo instalar sin conexión.
+
+Para completar la verificación, en un entorno con acceso a PyPI: crear un entorno virtual nuevo
+(sin `--system-site-packages`), ejecutar `pip install -r tests/requirements.txt` y luego
+`python3 tests/run_all.py`.
+
 ## Limitaciones
 
+- **Instalación de dependencias sin verificar.** Ver la sección anterior: el resultado se obtuvo
+  con paquetes ya instalados, no instalados desde `requirements.txt`.
 - **Un solo navegador.** Todo se prueba en Google Chrome. Firefox, Safari (iPhone) y Samsung
   Internet no se prueban.
 - **Teléfonos simulados, no reales.** El Motorola Edge 50 Fusion y otros equipos se simulan con
