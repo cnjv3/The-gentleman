@@ -1,2 +1,9 @@
+# Versiones exactas del entorno donde se ejecutaron las suites (Python 3.13.18, Linux x86_64).
+# Instalar con: pip install -r tests/requirements.txt
+# Nota: la instalación desde este archivo NO pudo verificarse en la sesión del 2026-11-02
+# (sin acceso a PyPI). Ver "Verificación de reproducibilidad" en tests/README.md.
 playwright==1.63.0
+pyee==13.0.1             # dependencia de playwright
+greenlet==3.5.6          # dependencia de playwright
+typing_extensions==4.16.0  # dependencia de pyee
 Pillow==12.3.0
