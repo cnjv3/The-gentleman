@@ -50,6 +50,38 @@
 
   <main id="contenido">
     <!-- 2. Hero principal -->
+    <section class="hero" id="inicio" aria-labelledby="hero-title">
+      <picture class="hero__media">
+        <!-- Pantallas verticales: recorte centrado en el sillón -->
+        <source media="(orientation: portrait)" type="image/avif" srcset="assets/images/hero/hero-mobile.avif">
+        <source media="(orientation: portrait)" type="image/webp" srcset="assets/images/hero/hero-mobile.webp">
+        <!-- Pantallas horizontales: escena completa -->
+        <source type="image/avif" srcset="assets/images/hero/hero-1280.avif 1280w, assets/images/hero/hero-1672.avif 1672w" sizes="100vw">
+        <img
+          class="hero__image"
+          src="assets/images/hero/hero-1672.webp"
+          srcset="assets/images/hero/hero-1280.webp 1280w, assets/images/hero/hero-1672.webp 1672w"
+          sizes="100vw"
+          width="1672"
+          height="941"
+          alt="Imagen referencial: sillón de barbería clásico en un ambiente de madera oscura con iluminación cálida."
+          fetchpriority="high"
+          decoding="async">
+      </picture>
+      <div class="hero__overlay" aria-hidden="true"></div>
+
+      <div class="container hero__content">
+        <p class="hero__eyebrow"><span>Barber Studio</span></p>
+        <h1 class="hero__title" id="hero-title">Estilo, precisión y personalidad</h1>
+        <p class="hero__text">Más que un corte, una experiencia diseñada para el hombre moderno.</p>
+        <div class="hero__actions">
+          <a class="btn btn--light" href="#reservas">Reservar ahora</a>
+          <a class="btn btn--outline" href="#servicios">Explorar servicios</a>
+        </div>
+      </div>
+
+      <p class="hero__credit">Imagen referencial</p>
+    </section>
 
     <!-- 3. Nosotros -->
 

@@ -320,7 +320,7 @@ b {
   text-decoration: none;
   color: var(--btn-text);
   background-color: var(--btn-bg);
-  border: 1px solid var(--btn-bg);
+  border: 1px solid var(--btn-border, var(--btn-bg));
   border-radius: var(--radius);
   transition:
     background-color var(--duration-fast) var(--ease-out),
@@ -342,10 +342,21 @@ b {
   --btn-bg-hover: var(--beige);
 }
 
+/* Transparente con borde dorado y texto marfil, para fondos oscuros.
+   Hover: se rellena de marfil con texto carbón. */
+.btn--outline {
+  --btn-bg: transparent;
+  --btn-text: var(--ivory);
+  --btn-border: var(--gold);
+  --btn-bg-hover: var(--ivory);
+  --btn-text-hover: var(--charcoal);
+}
+
 /* Solo en dispositivos con cursor: en pantallas táctiles el
    hover se "queda pegado" después de tocar. */
 @media (hover: hover) {
   .btn:hover {
+    color: var(--btn-text-hover, var(--btn-text));
     background-color: var(--btn-bg-hover);
     border-color: var(--btn-bg-hover);
   }
@@ -629,7 +640,174 @@ html:not(.js) .site-nav__panel {
 
 /* =========================================================
    07. HERO
+   ---------------------------------------------------------
+   Pantallas verticales: recorte del sillón, texto abajo.
+   Pantallas horizontales: escena completa, texto a la
+   izquierda y sillón a la derecha (como la maqueta).
    ========================================================= */
+
+.hero {
+  /* Alto del header (incluye su línea inferior) */
+  --header-offset: 77px;
+
+  /* Contexto oscuro: foco y selección se adaptan */
+  --color-focus: var(--gold);
+  --color-selection-bg: var(--gold);
+  --color-selection-text: var(--charcoal);
+
+  position: relative;
+  isolation: isolate; /* Las capas negativas quedan dentro del hero */
+  display: flex;
+  align-items: stretch;
+  /* Header + hero = una pantalla. svh descuenta la barra de
+     direcciones de Chrome en Android; vh es el respaldo. */
+  min-height: calc(100vh - var(--header-offset));
+  min-height: calc(100svh - var(--header-offset));
+  padding-block: var(--space-8) var(--space-7);
+  overflow: hidden;
+  color: var(--ivory);
+  background-color: var(--charcoal);
+}
+
+/* --- Imagen y degradado (capas de fondo) --- */
+.hero__media,
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 76% center; /* Sillón centrado en el recorte vertical */
+}
+
+/* Vertical: oscuro arriba (título) y abajo (texto y botones),
+   despejado al centro para que el sillón sea protagonista. */
+.hero__overlay {
+  background: linear-gradient(
+    to bottom,
+    rgb(41 39 34 / 0.94) 0%,
+    rgb(41 39 34 / 0.7) 24%,
+    rgb(41 39 34 / 0) 42%,
+    rgb(41 39 34 / 0) 52%,
+    rgb(41 39 34 / 0.8) 70%,
+    rgb(41 39 34 / 0.97) 100%
+  );
+}
+
+/* --- Contenido --- */
+/* Vertical: título arriba y acciones abajo (composición tipo afiche) */
+.hero__content {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero__text {
+  margin-top: auto;
+}
+
+.hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  /* Beige (9.07:1 sobre carbón): el dorado solo llega a 4.57:1
+     y sobre la foto quedaba bajo el mínimo. Las líneas siguen doradas. */
+  color: var(--beige);
+}
+
+.hero__eyebrow::before,
+.hero__eyebrow::after {
+  content: "";
+  width: 2.5rem;
+  height: 1px;
+  background-color: var(--gold);
+}
+
+/* Compensa el espacio extra de letter-spacing antes de la línea */
+.hero__eyebrow span {
+  margin-right: -0.3em;
+}
+
+.hero__title {
+  max-width: 18ch;
+  margin-block: var(--space-4) var(--space-5);
+  font-size: clamp(2.25rem, 1.5rem + 3.4vw, 4.75rem);
+  line-height: 1.08;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.hero__text {
+  max-width: 34ch;
+  font-size: var(--fs-lead);
+}
+
+.hero__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+/* Leyenda discreta en la esquina inferior */
+.hero__credit {
+  position: absolute;
+  right: var(--container-padding);
+  bottom: var(--space-3);
+  font-size: 0.6875rem; /* 11px */
+  letter-spacing: 0.08em;
+  color: rgb(242 239 231 / 0.8);
+}
+
+/* Botones lado a lado cuando hay espacio */
+@media (min-width: 30em) {
+  .hero__actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+}
+
+/* Pantallas horizontales (escritorio y celular girado) */
+@media (orientation: landscape) {
+  .hero {
+    align-items: center;
+  }
+
+  .hero__content {
+    display: block;
+  }
+
+  .hero__image {
+    object-position: 75% 70%;
+  }
+
+  .hero__overlay {
+    background:
+      linear-gradient(to top, rgb(41 39 34 / 0.55) 0%, transparent 30%),
+      linear-gradient(
+        to right,
+        rgb(41 39 34 / 0.95) 0%,
+        rgb(41 39 34 / 0.85) 32%,
+        rgb(41 39 34 / 0.35) 58%,
+        rgb(41 39 34 / 0) 78%
+      );
+  }
+}
+
+@media (min-width: 64em) {
+  .hero {
+    --header-offset: 89px;
+  }
+}
 
 
 /* =========================================================
@@ -666,6 +844,34 @@ html:not(.js) .site-nav__panel {
    14. ANIMACIONES
    ========================================================= */
 
+@keyframes hero-zoom {
+  from { transform: scale(1.06); }
+  to   { transform: scale(1); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(1rem); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Acercamiento lento de la imagen del hero */
+.hero__image {
+  animation: hero-zoom 1.6s var(--ease-out) both;
+}
+
+/* Entrada escalonada de los textos del hero */
+.hero__eyebrow,
+.hero__title,
+.hero__text,
+.hero__actions {
+  animation: fade-up var(--duration-slow) var(--ease-out) both;
+}
+
+.hero__eyebrow { animation-delay: 150ms; }
+.hero__title   { animation-delay: 300ms; }
+.hero__text    { animation-delay: 450ms; }
+.hero__actions { animation-delay: 600ms; }
+
 
 /* =========================================================
    15. REDUCCIÓN DE MOVIMIENTO
@@ -679,6 +885,7 @@ html:not(.js) .site-nav__panel {
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
