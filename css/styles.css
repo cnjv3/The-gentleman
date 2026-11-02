@@ -812,7 +812,87 @@ html:not(.js) .site-nav__panel {
 
 /* =========================================================
    08. NOSOTROS
+   ---------------------------------------------------------
+   Composición asimétrica: imagen protagonista con un marco
+   dorado desplazado y texto equilibrado a un lado.
    ========================================================= */
+
+.about__grid {
+  display: grid;
+  gap: var(--space-7);
+  align-items: center;
+}
+
+.about__media {
+  position: relative;
+  /* Espacio para el marco dorado desplazado */
+  margin: 0 var(--space-4) var(--space-4) 0;
+}
+
+/* Marco dorado decorativo, desplazado hacia abajo y a la derecha */
+.about__media::before {
+  content: "";
+  position: absolute;
+  inset: var(--space-4) calc(var(--space-4) * -1) calc(var(--space-4) * -1) var(--space-4);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius);
+}
+
+.about__image {
+  position: relative; /* Por encima del marco */
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+/* Leyenda con fondo translúcido: la foto tiene brillos (cromados)
+   repartidos, así el contraste no depende de lo que haya detrás. */
+.about__caption {
+  position: absolute;
+  left: var(--space-3);
+  bottom: var(--space-3);
+  padding: 0.125rem var(--space-2);
+  font-size: 0.6875rem; /* 11px */
+  letter-spacing: 0.08em;
+  color: var(--ivory);
+  background-color: rgb(41 39 34 / 0.72);
+  border-radius: var(--radius);
+}
+
+.about__title {
+  max-width: 14ch;
+}
+
+/* Detalle dorado bajo el título */
+.about__rule {
+  display: block;
+  width: 4rem;
+  height: 1px;
+  margin-block: var(--space-5);
+  background-color: var(--color-accent);
+}
+
+.about__text {
+  max-width: 38ch;
+  font-size: var(--fs-lead);
+}
+
+/* Tablet y escritorio: imagen amplia a la izquierda, texto a la derecha */
+@media (min-width: 48em) {
+  .about__grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--space-5);
+  }
+
+  .about__media {
+    grid-column: 1 / span 6;
+  }
+
+  .about__content {
+    grid-column: 8 / span 5;
+  }
+}
 
 
 /* =========================================================
@@ -872,6 +952,22 @@ html:not(.js) .site-nav__panel {
 .hero__text    { animation-delay: 450ms; }
 .hero__actions { animation-delay: 600ms; }
 
+/* Aparición al desplazarse (la clase .is-visible la agrega reveal.js).
+   Sin JavaScript (.js ausente) el contenido se muestra normal. */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition:
+    opacity var(--duration-slow) var(--ease-out),
+    transform var(--duration-slow) var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
 
 /* =========================================================
    15. REDUCCIÓN DE MOVIMIENTO
@@ -888,6 +984,7 @@ html:not(.js) .site-nav__panel {
     animation-delay: 0s !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
     scroll-behavior: auto !important;
   }
 }
