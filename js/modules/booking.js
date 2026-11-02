@@ -8,9 +8,9 @@
  * El resumen nunca se escribe "a mano": siempre se dibuja desde el estado.
  */
 
-import { BUSINESS, BOOKING_HOURS } from '../config.js';
-import { createStore } from './store.js';
-import { getServices } from './services-data.js';
+import { BUSINESS, BOOKING_HOURS } from '../config.js?v=8.1';
+import { createStore } from './store.js?v=8.1';
+import { getServices } from './services-data.js?v=8.1';
 
 const EMPTY = '—';
 
