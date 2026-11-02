@@ -11,3 +11,11 @@ export const BUSINESS = {
   // solo dígitos (ej. Chile: 569XXXXXXXX).
   whatsappNumber: '56900000000',
 };
+
+// ⚠ DEMOSTRACIÓN: horario de atención ficticio. Solo define qué horas
+// aparecen en el formulario; no indica disponibilidad real.
+export const BOOKING_HOURS = {
+  open: '10:00',     // Primera hora que se puede solicitar
+  close: '20:00',    // Cierre (la última opción es close - slotMinutes)
+  slotMinutes: 30,   // Intervalo entre horarios
+};
