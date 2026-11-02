@@ -2197,7 +2197,255 @@ html:not(.js) .site-nav__panel {
 
 /* =========================================================
    13. FOOTER
+   ---------------------------------------------------------
+   Fondo carbón. Móvil: marca, navegación y contacto apilados
+   (centrados). Tablet: marca arriba, dos columnas debajo.
+   Escritorio: tres columnas con divisores dorados finos.
    ========================================================= */
+
+.site-footer {
+  /* Contexto oscuro: foco, botón y selección se adaptan */
+  --color-focus: var(--gold);
+  --color-selection-bg: var(--gold);
+  --color-selection-text: var(--charcoal);
+
+  padding-block: var(--space-8) var(--space-6);
+  color: var(--ivory);
+  background-color: var(--charcoal);
+}
+
+.site-footer__grid {
+  display: grid;
+  gap: var(--space-7);
+  text-align: center;
+}
+
+/* --- Marca --- */
+.site-footer__logo {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--ivory);
+  text-decoration: none;
+}
+
+.site-footer__logo-name {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 1.5rem + 1vw, 2.25rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: 0.06em;
+}
+
+.site-footer__logo-tagline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  margin-top: var(--space-2);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--beige); /* 9.07:1 sobre carbón */
+}
+
+.site-footer__logo-tagline span {
+  margin-right: -0.32em;
+}
+
+.site-footer__logo-tagline::before,
+.site-footer__logo-tagline::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: var(--gold);
+}
+
+.site-footer__motto {
+  max-width: 22rem;
+  margin: var(--space-5) auto 0;
+  font-family: var(--font-heading);
+  font-size: var(--fs-lead);
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--beige);
+  text-wrap: balance; /* Evita una palabra sola en la última línea */
+}
+
+/* --- Columnas --- */
+.site-footer__title {
+  margin-bottom: var(--space-4);
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold); /* 4.57:1 sobre carbón */
+}
+
+.site-footer__list {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.site-footer__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px; /* Objetivo táctil */
+  color: var(--ivory);
+  text-decoration: none;
+  text-underline-offset: 0.25em;
+  overflow-wrap: anywhere;
+}
+
+@media (hover: hover) {
+  .site-footer__link:hover {
+    color: var(--beige);
+    text-decoration: underline;
+    text-decoration-color: var(--gold);
+  }
+}
+
+/* --- Contacto --- */
+.site-footer__contact {
+  font-style: normal; /* <address> es cursiva por defecto */
+}
+
+.site-footer__contact-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  min-height: 44px;
+  font-size: var(--fs-sm);
+  color: var(--beige);
+}
+
+.site-footer__contact-item .site-footer__link {
+  font-size: var(--fs-sm);
+}
+
+.site-footer__icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--gold);
+}
+
+.site-footer__cta {
+  gap: var(--space-3);
+  width: 100%;
+  max-width: 20rem;
+  margin-top: var(--space-5);
+}
+
+/* --- Franja inferior --- */
+.site-footer__bottom {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: center;
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  font-size: var(--fs-xs);
+  text-align: center;
+  color: var(--beige);
+  border-top: 1px solid rgb(166 138 96 / 0.45); /* Divisor dorado sutil */
+}
+
+.site-footer__demo {
+  max-width: 36rem;
+  font-style: italic;
+}
+
+.site-footer__top {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ivory);
+  text-decoration: none;
+}
+
+.site-footer__top .site-footer__icon {
+  width: 16px;
+  height: 16px;
+}
+
+@media (hover: hover) {
+  .site-footer__top:hover {
+    color: var(--gold);
+  }
+}
+
+/* Tablet: marca arriba, navegación | contacto debajo */
+@media (min-width: 48em) {
+  .site-footer__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-6);
+    text-align: left;
+  }
+
+  .site-footer__brand {
+    grid-column: 1 / -1;
+    text-align: center;
+  }
+
+  .site-footer__contact-item {
+    justify-content: flex-start;
+  }
+
+  .site-footer__cta {
+    width: auto;
+  }
+}
+
+/* Escritorio: tres columnas con divisores dorados */
+@media (min-width: 64em) {
+  .site-footer__grid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr) minmax(0, 1.2fr);
+    column-gap: 0;
+    align-items: stretch; /* Divisores de igual altura */
+  }
+
+  .site-footer__brand {
+    grid-column: auto;
+    padding-right: var(--space-6);
+  }
+
+  /* El logotipo cabe en una línea dentro de su columna desde 1024px */
+  .site-footer__logo-name {
+    font-size: clamp(1.75rem, 0.5rem + 2vw, 2.25rem);
+  }
+
+  .site-footer__col {
+    padding-left: var(--space-7);
+    border-left: 1px solid rgb(166 138 96 / 0.45);
+  }
+
+  .site-footer__bottom {
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    justify-items: start;
+    gap: var(--space-5);
+    text-align: left;
+  }
+
+  .site-footer__demo {
+    justify-self: center;
+    text-align: center;
+  }
+
+  /* Siempre a la derecha, aunque el aviso de demostración esté oculto */
+  .site-footer__top {
+    grid-column: 3;
+    justify-self: end;
+  }
+}
 
 
 /* =========================================================

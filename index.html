@@ -12,8 +12,8 @@
   <!-- Versión de los archivos (?v=): cambiarla en cada publicación obliga a los
        navegadores a descargar el CSS y el JS nuevos en vez de usar copias en caché.
        Debe ser la misma aquí, en js/main.js y en los import de js/modules/. -->
-  <link rel="stylesheet" href="css/styles.css?v=9.0">
-  <script type="module" src="js/main.js?v=9.0"></script>
+  <link rel="stylesheet" href="css/styles.css?v=10.0">
+  <script type="module" src="js/main.js?v=10.0"></script>
 </head>
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -662,6 +662,73 @@
     </section>
   </main>
 
-  <!-- 8. Footer -->
+  <!-- 8. Footer
+       Los datos de contacto se leen de js/config.js mediante getContactView()
+       (js/modules/contact.js). Cada dato aparece solo si existe. -->
+  <footer class="site-footer" data-footer>
+    <div class="container">
+      <div class="site-footer__grid">
+        <div class="site-footer__brand">
+          <a class="site-footer__logo" href="#inicio">
+            <span class="site-footer__logo-name">THE GENTLEMAN</span>
+            <span class="site-footer__logo-tagline"><span>Barber Studio</span></span>
+            <span class="visually-hidden"> — volver al inicio</span>
+          </a>
+          <p class="site-footer__motto">Tradición, estilo y cuidado personal en un solo lugar.</p>
+        </div>
+
+        <nav class="site-footer__col" aria-labelledby="footer-nav-title">
+          <h2 class="site-footer__title" id="footer-nav-title">Navegación</h2>
+          <ul class="site-footer__list">
+              <li><a class="site-footer__link" href="#inicio">Inicio</a></li>
+              <li><a class="site-footer__link" href="#nosotros">Nosotros</a></li>
+              <li><a class="site-footer__link" href="#servicios">Servicios</a></li>
+              <li><a class="site-footer__link" href="#galeria">Galería</a></li>
+              <li><a class="site-footer__link" href="#reservas">Reservas</a></li>
+              <li><a class="site-footer__link" href="#contacto">Contacto</a></li>
+          </ul>
+        </nav>
+
+        <div class="site-footer__col">
+          <h2 class="site-footer__title" id="footer-contact-title">Contacto</h2>
+          <address class="site-footer__contact">
+            <ul class="site-footer__list" aria-labelledby="footer-contact-title">
+              <li class="site-footer__contact-item" data-footer-item="address" hidden>
+                <svg class="site-footer__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+                <span data-footer="address"></span>
+              </li>
+              <li class="site-footer__contact-item" data-footer-item="hours" hidden>
+                <svg class="site-footer__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                <span><span data-footer="days"></span> · <span data-footer="time"></span></span>
+              </li>
+              <li class="site-footer__contact-item" data-footer-item="whatsapp" hidden>
+                <svg class="site-footer__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 20l1.5-4A8 8 0 1 1 9 19.5z"/><path d="M9 10h6M9 13h4"/></svg>
+                <a class="site-footer__link" data-footer-link="whatsapp" href="#" target="_blank" rel="noopener"><span class="visually-hidden">WhatsApp: </span><span data-footer="whatsapp"></span><span class="visually-hidden"> (abre WhatsApp)</span></a>
+              </li>
+              <li class="site-footer__contact-item" data-footer-item="phone" hidden>
+                <svg class="site-footer__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+                <a class="site-footer__link" data-footer-link="phone" href="#"><span class="visually-hidden">Teléfono: </span><span data-footer="phone"></span></a>
+              </li>
+              <li class="site-footer__contact-item" data-footer-item="email" hidden>
+                <svg class="site-footer__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+                <a class="site-footer__link" data-footer-link="email" href="#"><span class="visually-hidden">Correo: </span><span data-footer="email"></span></a>
+              </li>
+              <li class="site-footer__contact-item" data-footer-item="instagram" hidden>
+                <svg class="site-footer__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg>
+                <a class="site-footer__link" data-footer-link="instagram" href="#" target="_blank" rel="noopener"><span class="visually-hidden">Instagram: </span><span data-footer="instagram"></span><span class="visually-hidden"> (abre en una pestaña nueva)</span></a>
+              </li>
+            </ul>
+          </address>
+          <a class="btn btn--outline site-footer__cta" href="#reservas"><svg class="btn__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Reservar ahora</a>
+        </div>
+      </div>
+
+      <div class="site-footer__bottom">
+        <p class="site-footer__copy">© <span data-footer-year>2026</span> THE GENTLEMAN. Todos los derechos reservados.</p>
+        <p class="site-footer__demo" data-footer-demo>Sitio de demostración: servicios, precios, datos de contacto e imágenes son ilustrativos.</p>
+        <a class="site-footer__top" href="#top"><svg class="site-footer__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 19V5M6 11l6-6 6 6"/></svg>Volver arriba</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>

@@ -6,8 +6,8 @@
  * ni datos inventados presentados como reales.
  */
 
-import { BUSINESS, BOOKING_HOURS, CONTACT } from '../config.js?v=9.0';
-import { buildWhatsAppUrl } from './booking.js?v=9.0';
+import { BUSINESS, BOOKING_HOURS, CONTACT } from '../config.js?v=10.0';
+import { buildWhatsAppUrl } from './booking.js?v=10.0';
 
 const PENDING = 'Por confirmar';
 
