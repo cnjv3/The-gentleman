@@ -47,6 +47,10 @@
   --color-focus: var(--charcoal);       /* Contorno de foco (mín. 3:1) */
   --color-selection-bg: var(--charcoal);
   --color-selection-text: var(--ivory);
+  /* Errores de formulario: siempre acompañados de texto, no solo color */
+  --color-error: #8A2E22;
+  /* Bordes de campos: ≥ 3:1 sobre el fondo, como exige WCAG para controles */
+  --color-field-border: color-mix(in srgb, var(--charcoal) 55%, var(--ivory));
 
   /* --- Tipografías --- */
   --font-heading: "Playfair Display", Georgia, "Times New Roman", serif;
@@ -350,6 +354,132 @@ b {
   --btn-border: var(--gold);
   --btn-bg-hover: var(--ivory);
   --btn-text-hover: var(--charcoal);
+}
+
+/* Dorado con texto carbón (4.57:1); hover beige (9.07:1).
+   El marfil sobre dorado no llega al mínimo (2.84:1). */
+.btn--gold {
+  --btn-bg: var(--gold);
+  --btn-text: var(--charcoal);
+  --btn-bg-hover: var(--beige);
+}
+
+/* --- Campos de formulario (reutilizables) --- */
+.field {
+  display: grid;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.field__label {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+
+.field__req {
+  margin-left: 0.125rem;
+  color: var(--gold-deep);
+}
+
+.field__optional {
+  font-weight: 400;
+}
+
+.field__control {
+  position: relative;
+}
+
+.field__icon {
+  position: absolute;
+  top: 50%;
+  left: var(--space-4);
+  width: 20px;
+  height: 20px;
+  color: var(--charcoal);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.field__control--textarea .field__icon {
+  top: var(--space-4);
+  transform: none;
+}
+
+.field__input {
+  width: 100%;
+  min-height: 52px;
+  padding: 0 var(--space-4) 0 3rem;
+  font-size: 1rem; /* 16px: evita el zoom automático en celulares */
+  color: var(--charcoal);
+  background-color: color-mix(in srgb, var(--ivory) 55%, white);
+  border: 1px solid var(--color-field-border);
+  border-radius: var(--radius);
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.field__input::placeholder {
+  color: color-mix(in srgb, var(--charcoal) 70%, var(--ivory));
+  opacity: 1;
+}
+
+.field__input:focus-visible {
+  outline-offset: 2px;
+  border-color: var(--charcoal);
+}
+
+.field__input[aria-invalid="true"] {
+  border-color: var(--color-error);
+  box-shadow: inset 0 0 0 1px var(--color-error);
+}
+
+.field__input:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.field__select {
+  padding-right: 2.75rem;
+  cursor: pointer;
+  appearance: none;
+}
+
+.field__chevron {
+  position: absolute;
+  top: 50%;
+  right: var(--space-4);
+  width: 18px;
+  height: 18px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.field__textarea {
+  min-height: 7rem;
+  padding-block: var(--space-3);
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.field__hint {
+  font-size: var(--fs-xs);
+}
+
+.field__error {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--color-error);
+}
+
+.field__error::before {
+  content: "⚠ ";
+}
+
+@media (hover: hover) {
+  .field__input:hover:not(:focus-visible):not([aria-invalid="true"]) {
+    border-color: var(--charcoal);
+  }
 }
 
 /* --- Encabezado de sección centrado (reutilizable) --- */
@@ -1455,7 +1585,272 @@ html:not(.js) .site-nav__panel {
 
 /* =========================================================
    11. RESERVAS
+   ---------------------------------------------------------
+   Móvil: formulario y, debajo, el resumen.
+   Desde 1024px: formulario | resumen (fijo al desplazarse).
+   Desde 1200px: imagen decorativa | formulario | resumen.
    ========================================================= */
+
+.booking {
+  overflow-x: clip; /* La imagen decorativa sangra hasta el borde */
+}
+
+.booking__layout {
+  display: grid;
+  gap: var(--space-7);
+}
+
+.booking__decor {
+  display: none;
+}
+
+.booking__heading {
+  margin-bottom: var(--space-6);
+}
+
+/* --- Formulario --- */
+.booking-form {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.booking-form__row {
+  display: grid;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.booking-form__legend {
+  font-size: var(--fs-xs);
+}
+
+.booking-form__legend span {
+  color: var(--gold-deep);
+}
+
+.booking-form__noscript {
+  padding: var(--space-3) var(--space-4);
+  font-weight: 600;
+  border: 1px solid var(--color-field-border);
+  border-radius: var(--radius);
+}
+
+/* --- Resumen --- */
+.booking-summary {
+  /* Contexto oscuro: foco y selección se adaptan */
+  --color-focus: var(--gold);
+  --color-selection-bg: var(--gold);
+  --color-selection-text: var(--charcoal);
+
+  align-self: start;
+  padding: var(--space-6) var(--space-5);
+  color: var(--ivory);
+  background-color: var(--charcoal);
+  border: 1px solid rgb(166 138 96 / 0.35);
+  border-radius: var(--radius);
+  box-shadow: 0 32px 64px -40px rgb(41 39 34 / 0.7);
+}
+
+.booking-summary__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding-bottom: var(--space-5);
+  font-size: var(--fs-h3);
+  font-weight: 400;
+  border-bottom: 1px solid rgb(242 239 231 / 0.15);
+}
+
+.booking-summary__title-icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  color: var(--gold);
+}
+
+/* Móvil: cada valor debajo de su etiqueta.
+   Desde 400px: dos columnas; las etiquetas toman el ancho
+   de la más larga, así los valores quedan alineados. */
+.booking-summary__list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: var(--space-1);
+  margin-block: var(--space-5);
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid rgb(242 239 231 / 0.15);
+}
+
+.booking-summary__row {
+  display: contents; /* dt y dd participan directamente en la rejilla */
+}
+
+.booking-summary__row dt,
+.booking-summary__row dd {
+  font-size: var(--fs-sm);
+}
+
+.booking-summary__row dt {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.booking-summary__icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--gold);
+  align-self: center;
+}
+
+.booking-summary__row dd {
+  margin: 0 0 var(--space-3);
+  padding-left: calc(20px + var(--space-3)); /* Alineado con el texto de la etiqueta */
+  font-weight: 600;
+  overflow-wrap: anywhere;
+  white-space: pre-line; /* Respeta los saltos de línea de las observaciones */
+}
+
+.booking-summary__row dd.is-empty {
+  font-weight: 400;
+  color: var(--beige);
+}
+
+.booking-summary__notice {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  background-color: rgb(242 239 231 / 0.06);
+  border: 1px solid rgb(166 138 96 / 0.4);
+  border-radius: var(--radius);
+}
+
+.booking-summary__notice-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  color: var(--gold);
+}
+
+.booking-summary__status {
+  margin-top: var(--space-4);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+
+.booking-summary__status:empty {
+  display: none;
+}
+
+.booking-summary__status[data-state="error"]::before { content: "⚠ "; color: var(--gold); }
+.booking-summary__status[data-state="success"]::before { content: "✓ "; color: var(--gold); }
+
+.booking-summary__submit {
+  gap: var(--space-3);
+  width: 100%;
+  min-height: 56px;
+  margin-top: var(--space-5);
+  padding-inline: var(--space-3);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.06em;
+  text-align: center;
+}
+
+/* En pantallas muy angostas el ícono se oculta para que el texto quepa en una línea */
+.booking-summary__submit svg {
+  display: none;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.booking-summary__demo {
+  margin-top: var(--space-3);
+  font-size: var(--fs-xs);
+  text-align: center;
+  color: var(--beige);
+}
+
+@media (min-width: 25em) {
+  .booking-summary__list {
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: var(--space-4) var(--space-5);
+  }
+
+  .booking-summary__row dd {
+    margin: 0;
+    padding-left: 0;
+  }
+
+  .booking-summary__submit {
+    letter-spacing: 0.08em;
+  }
+
+  .booking-summary__submit svg {
+    display: block;
+  }
+}
+
+/* Fecha y hora lado a lado cuando hay espacio */
+@media (min-width: 30em) {
+  .booking-form__row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 48em) {
+  .booking-summary {
+    padding: var(--space-7) var(--space-6);
+  }
+}
+
+/* Escritorio: formulario | resumen */
+@media (min-width: 64em) {
+  .booking__layout {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    column-gap: var(--space-7);
+    align-items: start;
+  }
+
+  /* El resumen acompaña al formulario mientras se desplaza */
+  .booking-summary {
+    position: sticky;
+    top: var(--space-6);
+  }
+
+  .booking-summary__submit {
+    font-size: var(--fs-sm);
+  }
+}
+
+/* Escritorio amplio: imagen decorativa a la izquierda */
+@media (min-width: 75em) {
+  .booking__layout {
+    grid-template-columns: minmax(8rem, 11rem) minmax(0, 1.1fr) minmax(0, 1fr);
+    column-gap: var(--space-6);
+  }
+
+  .booking__decor {
+    position: relative;
+    display: block;
+    align-self: stretch;
+    /* Se extiende hasta el borde izquierdo de la pantalla */
+    margin-left: calc(-1 * (max(0px, (100vw - var(--container-max)) / 2) + var(--container-padding)));
+  }
+
+  .booking__decor img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 74% 50%;
+    -webkit-mask-image: linear-gradient(to right, #000 40%, transparent 100%);
+    mask-image: linear-gradient(to right, #000 40%, transparent 100%);
+  }
+}
 
 
 /* =========================================================
