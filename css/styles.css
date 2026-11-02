@@ -302,10 +302,329 @@ b {
    05. COMPONENTES
    ========================================================= */
 
+/* --- Botón ---
+   Los colores salen de variables (--btn-*), así cada
+   contexto puede adaptarlos sin crear clases nuevas. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 var(--space-6);
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--btn-text);
+  background-color: var(--btn-bg);
+  border: 1px solid var(--btn-bg);
+  border-radius: var(--radius);
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+/* Carbón con texto marfil (12.98:1); hover dorado profundo (4.91:1) */
+.btn--primary {
+  --btn-bg: var(--charcoal);
+  --btn-text: var(--ivory);
+  --btn-bg-hover: var(--gold-deep);
+}
+
+/* Marfil con texto carbón, para fondos oscuros; hover beige (9.07:1) */
+.btn--light {
+  --btn-bg: var(--ivory);
+  --btn-text: var(--charcoal);
+  --btn-bg-hover: var(--beige);
+}
+
+/* Solo en dispositivos con cursor: en pantallas táctiles el
+   hover se "queda pegado" después de tocar. */
+@media (hover: hover) {
+  .btn:hover {
+    background-color: var(--btn-bg-hover);
+    border-color: var(--btn-bg-hover);
+  }
+}
+
 
 /* =========================================================
    06. HEADER Y NAVEGACIÓN
    ========================================================= */
+
+.site-header {
+  position: relative; /* Referencia para el panel del menú móvil */
+  z-index: 50;
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--beige);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: 76px;
+}
+
+/* --- Logotipo tipográfico --- */
+.logo {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding-block: var(--space-2);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.logo__name {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+}
+
+.logo__tagline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  margin-top: var(--space-1);
+  font-size: 0.6875rem; /* 11px */
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold-deep); /* 4.91:1 sobre marfil */
+}
+
+/* Compensa el espacio extra que deja letter-spacing al final */
+.logo__tagline span {
+  margin-right: -0.3em;
+}
+
+/* Líneas finas decorativas a cada lado */
+.logo__tagline::before,
+.logo__tagline::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: var(--color-accent);
+}
+
+/* --- Botón hamburguesa (móvil) --- */
+.nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-right: -12px; /* Alinea el ícono con el borde del contenedor */
+  padding: 0;
+  color: var(--color-text);
+  background: none;
+  border: 0;
+}
+
+.nav-toggle__icon {
+  position: relative;
+  width: 24px;
+  height: 14px;
+}
+
+.nav-toggle__icon span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: currentColor;
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    opacity var(--duration-fast) var(--ease-out);
+}
+
+.nav-toggle__icon span:nth-child(1) { top: 0; }
+.nav-toggle__icon span:nth-child(2) { top: 6px; }
+.nav-toggle__icon span:nth-child(3) { top: 12px; }
+
+/* Hamburguesa → X */
+.is-open .nav-toggle__icon span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.is-open .nav-toggle__icon span:nth-child(2) {
+  opacity: 0;
+}
+
+.is-open .nav-toggle__icon span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* --- Panel del menú (móvil) --- */
+.site-nav__panel {
+  /* Contexto oscuro: foco y botón se adaptan */
+  --color-focus: var(--gold);
+  --color-selection-bg: var(--gold);
+  --color-selection-text: var(--charcoal);
+
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding: var(--space-2) var(--container-padding) var(--space-7);
+  color: var(--ivory);
+  background-color: var(--charcoal);
+}
+
+/* Con JavaScript, el panel empieza oculto.
+   visibility: hidden también impide llegar a los enlaces con Tab. */
+.js .site-nav__panel {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-0.5rem);
+  transition:
+    opacity var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out),
+    visibility 0s linear var(--duration-base);
+}
+
+.js .is-open .site-nav__panel {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition-delay: 0s;
+}
+
+/* Sin JavaScript: el menú se muestra como lista normal */
+html:not(.js) .nav-toggle {
+  display: none;
+}
+
+html:not(.js) .site-header__inner {
+  flex-wrap: wrap;
+}
+
+html:not(.js) .site-nav {
+  width: 100%;
+}
+
+html:not(.js) .site-nav__panel {
+  position: static;
+  margin-inline: calc(var(--container-padding) * -1);
+}
+
+.site-nav__link {
+  display: block;
+  padding-block: var(--space-4);
+  font-size: var(--fs-base);
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid rgb(242 239 231 / 0.12);
+}
+
+.site-nav__cta {
+  width: 100%;
+  margin-top: var(--space-6);
+}
+
+.site-nav__panel .btn--primary {
+  --btn-bg: var(--ivory);
+  --btn-text: var(--charcoal);
+  --btn-bg-hover: var(--beige);
+}
+
+/* --- Escritorio (≥ 1024px) --- */
+@media (min-width: 64em) {
+  .site-header__inner {
+    min-height: 88px;
+    gap: var(--space-6);
+  }
+
+  .logo__name {
+    font-size: 1.5rem;
+  }
+
+  .nav-toggle {
+    display: none;
+  }
+
+  .site-nav {
+    flex: 1;
+  }
+
+  /* El panel deja de ser desplegable y se integra en la fila */
+  .site-nav__panel,
+  .js .site-nav__panel,
+  html:not(.js) .site-nav__panel {
+    --color-focus: var(--charcoal);
+    --color-selection-bg: var(--charcoal);
+    --color-selection-text: var(--ivory);
+
+    position: static;
+    display: flex;
+    align-items: center;
+    margin-inline: 0;
+    padding: 0;
+    color: inherit;
+    background: none;
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .site-nav__list {
+    display: flex;
+    gap: clamp(1.25rem, 2.2vw, 2.5rem);
+    margin-inline: auto; /* Centra la lista en el espacio disponible */
+  }
+
+  .site-nav__link {
+    position: relative;
+    padding-block: var(--space-2);
+    font-size: 0.9375rem; /* 15px */
+    border-bottom: 0;
+  }
+
+  /* Línea dorada que crece desde el centro */
+  .site-nav__link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: var(--color-accent);
+    transform: scaleX(0);
+    transition: transform var(--duration-base) var(--ease-out);
+  }
+
+  .site-nav__link:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  .site-nav__cta {
+    width: auto;
+    margin-top: 0;
+  }
+
+  .site-nav__panel .btn--primary {
+    --btn-bg: var(--charcoal);
+    --btn-text: var(--ivory);
+    --btn-bg-hover: var(--gold-deep);
+  }
+}
+
+@media (min-width: 64em) and (hover: hover) {
+  .site-nav__link:hover::after {
+    transform: scaleX(1);
+  }
+}
 
 
 /* =========================================================
