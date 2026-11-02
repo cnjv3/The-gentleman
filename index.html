@@ -12,8 +12,8 @@
   <!-- Versión de los archivos (?v=): cambiarla en cada publicación obliga a los
        navegadores a descargar el CSS y el JS nuevos en vez de usar copias en caché.
        Debe ser la misma aquí, en js/main.js y en los import de js/modules/. -->
-  <link rel="stylesheet" href="css/styles.css?v=8.1">
-  <script type="module" src="js/main.js?v=8.1"></script>
+  <link rel="stylesheet" href="css/styles.css?v=9.0">
+  <script type="module" src="js/main.js?v=9.0"></script>
 </head>
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -553,7 +553,113 @@
       </div>
     </section>
 
-    <!-- 7. Ubicación y contacto -->
+    <!-- 7. Ubicación y contacto
+         Los datos se leen de js/config.js (CONTACT, BUSINESS y BOOKING_HOURS) mediante
+         js/modules/contact.js. Cada botón se muestra solo si su dato existe. -->
+    <section class="section location" id="ubicacion" aria-labelledby="location-title" data-contact-section>
+      <div class="container">
+        <header class="section-heading" data-reveal>
+          <p class="section-heading__eyebrow"><span>Visítanos</span></p>
+          <h2 class="section-heading__title" id="location-title">Un espacio creado para ti.</h2>
+          <p class="section-heading__text">Descubre <strong>THE GENTLEMAN</strong> y vive una experiencia donde la tradición y el estilo contemporáneo se encuentran.</p>
+        </header>
+
+        <p class="location__demo" data-contact-demo data-reveal>
+          <span class="location__demo-tag">Datos ilustrativos</span>
+          Esta es una demostración: la dirección y los datos de contacto se completarán con la información real del establecimiento.
+        </p>
+
+        <div class="location__layout">
+          <div class="location__info" id="contacto">
+            <h3 class="visually-hidden">Información de contacto</h3>
+            <noscript><p class="location__noscript">Activa JavaScript para ver los datos de contacto.</p></noscript>
+            <ul class="contact-list">
+            <li class="contact-card" data-reveal>
+              <svg class="contact-card__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+              <div class="contact-card__body">
+                <h3 class="contact-card__title">Dirección</h3>
+                <p class="contact-card__text" data-contact="address">—</p>
+                <div class="contact-card__actions">
+                  <a class="btn btn--ghost" href="#" data-contact-action="map" target="_blank" rel="noopener" hidden><svg class="btn__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7M9 7h8v8"/></svg>Cómo llegar<span class="visually-hidden"> (abre Google Maps)</span></a>
+                </div>
+              </div>
+            </li>
+            <li class="contact-card" data-reveal style="--reveal-delay: 80ms">
+              <svg class="contact-card__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              <div class="contact-card__body">
+                <h3 class="contact-card__title">Horario de atención</h3>
+                <p class="contact-card__text contact-card__strong" data-contact="days">—</p>
+                <p class="contact-card__text" data-contact="time">—</p>
+              </div>
+            </li>
+            <li class="contact-card" data-reveal>
+              <svg class="contact-card__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+              <div class="contact-card__body">
+                <h3 class="contact-card__title">Teléfono y WhatsApp</h3>
+                <p class="contact-card__text"><span class="contact-card__label">WhatsApp:</span> <span data-contact="whatsapp">—</span></p>
+                <p class="contact-card__text"><span class="contact-card__label">Teléfono:</span> <span data-contact="phone">—</span></p>
+                <div class="contact-card__actions">
+                  <a class="btn btn--primary" href="#" data-contact-action="whatsapp" target="_blank" rel="noopener" hidden><svg class="btn__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 20l1.5-4A8 8 0 1 1 9 19.5z"/><path d="M9 10h6M9 13h4"/></svg>Escribir por WhatsApp<span class="visually-hidden"> (abre WhatsApp)</span></a>
+                  <a class="btn btn--ghost" href="#" data-contact-action="phone" hidden><svg class="btn__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Llamar</a>
+                </div>
+              </div>
+            </li>
+            <li class="contact-card" data-reveal style="--reveal-delay: 80ms">
+              <svg class="contact-card__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+              <div class="contact-card__body">
+                <h3 class="contact-card__title">Correo electrónico</h3>
+                <p class="contact-card__text" data-contact="email">—</p>
+                <div class="contact-card__actions">
+                  <a class="btn btn--ghost" href="#" data-contact-action="email" hidden><svg class="btn__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Enviar correo</a>
+                </div>
+              </div>
+            </li>
+            <li class="contact-card" data-reveal>
+              <svg class="contact-card__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg>
+              <div class="contact-card__body">
+                <h3 class="contact-card__title">Redes sociales</h3>
+                <p class="contact-card__text"><span class="contact-card__label">Instagram:</span> <span data-contact="instagram">—</span></p>
+                <div class="contact-card__actions">
+                  <a class="btn btn--ghost" href="#" data-contact-action="instagram" target="_blank" rel="noopener" hidden><svg class="btn__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7M9 7h8v8"/></svg>Ver Instagram<span class="visually-hidden"> (abre en una pestaña nueva)</span></a>
+                </div>
+              </div>
+            </li>
+            </ul>
+          </div>
+
+          <div class="location__map" data-reveal style="--reveal-delay: 120ms">
+            <div class="location-map" data-contact-map>
+              <div class="location-map__placeholder" data-contact-placeholder>
+                <!-- Ilustración abstracta: NO representa una ubicación real -->
+                <svg class="location-map__art" xmlns="http://www.w3.org/2000/svg" width="0" height="0" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+                  <g fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round">
+                    <path d="M-20 120 C 90 140, 160 80, 260 110 S 380 170, 430 150"/>
+                    <path d="M-20 330 C 70 300, 150 360, 240 320 S 360 260, 430 290"/>
+                    <path d="M110 -20 C 120 90, 80 200, 120 300 S 150 440, 130 520"/>
+                    <path d="M300 -20 C 280 80, 320 190, 290 280 S 260 420, 290 520"/>
+                  </g>
+                  <g fill="none" stroke="currentColor" stroke-width="3" opacity=".7">
+                    <path d="M-20 220 L 430 200"/><path d="M-20 430 L 430 410"/><path d="M210 -20 L 200 520"/>
+                  </g>
+                  <path class="location-map__route" d="M120 300 C 160 260, 190 250, 200 215" fill="none" stroke-width="2.5" stroke-dasharray="6 7"/>
+                </svg>
+                <div class="location-map__pin"><svg class="location-map__pin-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
+                <p class="location-map__caption">
+                  <span class="location-map__eyebrow" data-contact="map-eyebrow">Ubicación de demostración</span>
+                  <span class="location-map__text" data-contact="map-text">El mapa se mostrará aquí cuando exista una dirección confirmada.</span>
+                </p>
+              </div>
+              <!-- Alternativa siempre visible bajo un mapa insertado (no se puede detectar si falla) -->
+              <div class="location-map__fallback" data-contact-map-fallback hidden>
+                <p class="location-map__fallback-address" data-contact="map-address"></p>
+                <p class="location-map__fallback-hint" data-contact="map-hint"></p>
+              </div>
+            </div>
+            <a class="btn btn--primary location-map__cta" href="#" data-contact-action="map" target="_blank" rel="noopener" hidden><svg class="btn__icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7M9 7h8v8"/></svg>Abrir en Google Maps<span class="visually-hidden"> (abre en una pestaña nueva)</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- 8. Footer -->
